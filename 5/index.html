@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>AJAX</title>
+<title>git使用</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <style type="text/css">
 /* GitHub stylesheet for MarkdownPad (http://markdownpad.com) */
@@ -291,81 +291,142 @@ img {
 </style>
 </head>
 <body>
-<h1><center><font face="微软雅黑">AJAX</h1>
-<p>2018/6/29 15:33:06 </p>
-<h2>什么是AJAX</h2>
-<p>Ajax = 异步JavaScript和xml。</p>
-<p>Ajax是一种用于创建快速动态网页的技术。</p>
-<p>通过在后台与服务器进行少量数据交换，AJAX 可以使网页实现异步更新。这意味着可以在不重新加载整个网页的情况下，对网页的某部分进行更新。</p>
-<p>传统的网页（不使用 AJAX）如果需要更新内容，必需重载整个网页面。</p>
-<h2>创建XMLHttpRequest对象</h2>
-<p>XMLHttpRequest 用于在后台与服务器交换数据。这意味着可以在不重新加载整个网页的情况下，对网页的某部分进行更新。</p>
-<pre><code>let xhr = new XMLHttpRequest();
-</code></pre>
-
-<h2>向服务器发送请求请求</h2>
-<p>如需将请求发送到服务器，我们使用 XMLHttpRequest 对象的 open() 和 send() 方法：</p>
-<pre><code>xhr.open(method,url,async)
-
-xhr.send(string)
+<h1><center>git的使用</h1>
+<p>2018/7/1 14:10:45 </p>
+<h2>什么是git</h2>
+<p>Git是一个开源的分布式版本控制系统，用于敏捷高效地处理任何或小或大的项目。</p>
+<p>Git 是 Linus Torvalds 为了帮助管理 Linux 内核开发而开发的一个开放源码的版本控制软件。</p>
+<p>Git 与常用的版本控制工具 CVS, Subversion 等不同，它采用了分布式版本库的方式，不必服务器端软件支持。</p>
+<h2>工作流程</h2>
+<ul>
+<li>克隆 Git 资源作为工作目录。</li>
+<li>在克隆的资源上添加或修改文件。</li>
+<li>如果其他人修改了，你可以更新资源。</li>
+<li>在提交前查看修改。</li>
+<li>提交修改。</li>
+<li>在修改完成后，如果发现错误，可以撤回提交并再次修改并提交。</li>
+</ul>
+<h2>创建仓库</h2>
+<h3>git init</h3>
+<p>git init 命令来初始化一个 Git 仓库，Git 的很多命令都需要在 Git 的仓库中运行，所以 git init 是使用 Git 的第一个命令。</p>
+<h3>git clone</h3>
+<p>git clone 从现有 Git 仓库中拷贝项目</p>
+<pre><code>git clone &lt;repo&gt; &lt;directory&gt;
 </code></pre>
 
 <ul>
-<li>method:请求的类型；GET 或 POST</li>
-<li>url:文件在服务器上的位置</li>
-<li>async:true（异步）或 false（同步)</li>
-<li>string:仅用于 POST 请求,将请求发送到服务器。</li>
+<li>repo:Git 仓库</li>
+<li>directory:本地目录。</li>
 </ul>
-<h2>服务器响应</h2>
-<p>如需获得来自服务器的响应，请使用 XMLHttpRequest 对象的 responseText 或 responseXML 属性。</p>
-<pre><code>responseText   获得字符串形式的响应数据
-responseXML    获得 XML 形式的响应数据
+<h2>基本操作</h2>
+<h3>git add</h3>
+<p>将想要快照的内容写入缓存区</p>
+<p>使用 git add . 命令来添加当前项目的所有文件。</p>
+<h3>git status</h3>
+<p>以查看在你上次提交之后是否有修改。</p>
+<p>加 -s 参数，以获得简短的结果输出。</p>
+<h3>git diff</h3>
+<p>查看执行 git status 的结果的详细信息。</p>
+<ul>
+<li>尚未缓存的改动：git diff</li>
+<li>查看已缓存的改动： git diff --cached</li>
+<li>查看已缓存的与未缓存的所有改动：git diff HEAD</li>
+<li>显示摘要而非整个 diff：git diff --stat</li>
+</ul>
+<h3>git commit</h3>
+<p>将缓存区内容添加到仓库中。</p>
+<p>如果你觉得 git add 提交缓存的流程太过繁琐，Git 也允许你用 -a 选项跳过这一步。</p>
+<pre><code> git commit -a
 </code></pre>
 
-<h2>onreadystatechange 事件</h2>
-<p>当请求被发送到服务器时，我们需要执行一些基于响应的任务。</p>
-<p>每当 readyState 改变时，就会触发 onreadystatechange 事件</p>
-<p>readyState 属性存有 XMLHttpRequest 的状态信息。</p>
-<ul>
-<li>onreadystatechange:  存储函数（或函数名），每当 readyState 属性改变时，就会调用该函数。</li>
-<li>readyState:  存有 XMLHttpRequest 的状态。从 0 到 4 发生变化。</li>
-</ul>
-<p>&emsp;&emsp;&emsp;&emsp;&emsp;0: 请求未初始化</p>
-<p>&emsp;&emsp;&emsp;&emsp;&emsp;1: 服务器连接已建立</p>
-<p>&emsp;&emsp;&emsp;&emsp;&emsp;2: 请求已接收</p>
-<p>&emsp;&emsp;&emsp;&emsp;&emsp;3: 请求处理中</p>
-<p>&emsp;&emsp;&emsp;&emsp;&emsp;4: 请求已完成，且响应已就绪</p>
-<ul>
-<li>status:<br />
-&emsp;&emsp;&emsp;&emsp;200: &quot;OK&quot;,<br />
-&emsp;&emsp;&emsp;&emsp;404: 未找到页面</li>
-</ul>
-<p>实例</p>
-<pre><code>xhr.onreadystatechange=function()
-{
-    if (xhr.readyState==4 &amp;&amp; xhr.status==200)
-    {
-        document.getElementById(&quot;div&quot;).innerHTML=xhr.responseText;
-    }
-}
+<h3>git reset HEAD</h3>
+<p>用于取消已缓存的内容。</p>
+<h3>git rm</h3>
+<p>从 Git 中移除某个文件，就必须要从已跟踪文件清单中移除，然后提交。</p>
+<pre><code>git rm &lt;file&gt;
 </code></pre>
 
-<h2>完整版使用回调函数</h2>
-<p>回调函数是一种以参数形式传递给另一个函数的函数。</p>
-<p>如果您的网站上存在多个 AJAX 任务，那么您应该为创建 XMLHttpRequest 对象编写一个标准的函数，并为每个 AJAX 任务调用该函数。</p>
-<p>该函数调用应该包含 URL 以及发生 onreadystatechange 事件时执行的任务（每次调用可能不尽相同):</p>
-<pre><code>function loadXMLDoc (url, cfunc){
-    let xhr = new XMLHttpRequest();
-    xhr.onreadystatechange = cfunc;
-    xhr.open(&quot;GET&quot;,url,true);
-    xhr.send();
-}
-function myFunction() {
-loadXMLDoc(&quot;ajax.txt&quot;,function() {
-    if(xhr.readyState ==4 &amp;&amp; xhr.status==200){
-        document.getElementById(&quot;div&quot;).innerHTML=xhr.responseText;
-    }
-)}
+<p>如果删除之前修改过并且已经放到暂存区域的话，则必须要用强制删除选项 -f</p>
+<pre><code>git rm -f &lt;file&gt;
+</code></pre>
+
+<p>如果把文件从暂存区域移除，但仍然希望保留在当前工作目录中，换句话说，仅是从跟踪清单中删除，</p>
+<pre><code>git rm --cached &lt;file&gt;
+</code></pre>
+
+<h3>git mv</h3>
+<p>git mv 命令用于移动或重命名一个文件、目录、软连接。</p>
+<h2>git分支管理</h2>
+<p>几乎每一种版本控制系统都以某种形式支持分支。使用分支意味着你可以从开发主线上分离开来，然后在不影响主线的同时继续工作。</p>
+<p>创建分支命令：</p>
+<pre><code>git branch (branchname)
+</code></pre>
+
+<p>切换分支命令:</p>
+<pre><code>git checkout (branchname)
+</code></pre>
+
+<p>当你切换分支的时候，Git 会用该分支的最后提交的快照替换你的工作目录的内容， 所以多个分支不需要多个目录。</p>
+<p>合并分支命令:</p>
+<pre><code>git merge 
+</code></pre>
+
+<p>列出分支基本命令：</p>
+<pre><code>git branch
+</code></pre>
+
+<p>删除分支命令：</p>
+<pre><code>git branch -d (branchname)
+</code></pre>
+
+<h2>Git 查看提交历史</h2>
+<p>使用 git log 命令查看</p>
+<p>用 --oneline 选项来查看历史记录的简洁的版本。</p>
+<pre><code>git log --oneline
+</code></pre>
+
+<p>用 --graph 选项，查看历史中什么时候出现了分支、合并。</p>
+<pre><code>git log --oneline --graph
+</code></pre>
+
+<p>用 '--reverse'参数来逆向显示所有日志。</p>
+<pre><code>git log --reverse --oneline
+</code></pre>
+
+<p>如果只想查找指定用户的提交日志可以使用命令：git log --author</p>
+<pre><code>git log --author=Linus --oneline -5
+</code></pre>
+
+<h3>Git 标签</h3>
+<p>如果你达到一个重要的阶段，并希望永远记住那个特别的提交快照，你可以使用 git tag 给它打上标签。</p>
+<pre><code>git tag -a v1.0
+</code></pre>
+
+<h2>Git 远程仓库(Github)</h2>
+<h3>添加远程库</h3>
+<pre><code> git remote add [shortname] [url]
+</code></pre>
+
+<h3>查看当前的远程库</h3>
+<pre><code>git remote
+git remote -v
+</code></pre>
+
+<h3>提取远程仓库</h3>
+<p>从远程仓库下载新分支与数据：</p>
+<pre><code>git fetch
+</code></pre>
+
+<p>从远端仓库提取数据并尝试合并到当前分支：</p>
+<pre><code>git merge
+</code></pre>
+
+<h3>推送到远程仓库</h3>
+<pre><code>git push [alias] [branch]
+</code></pre>
+
+<h3>删除远程仓库</h3>
+<pre><code>git remote rm [别名]
 </code></pre>
 
 
