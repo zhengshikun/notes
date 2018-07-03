@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>canvas</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<style type="text/css">
+/* GitHub stylesheet for MarkdownPad (http://markdownpad.com) */
+/* Author: Nicolas Hery - http://nicolashery.com */
+/* Version: b13fe65ca28d2e568c6ed5d7f06581183df8f2ff */
+/* Source: https://github.com/nicolahery/markdownpad-github */
+
+/* RESET
+=============================================================================*/
+
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+/* BODY
+=============================================================================*/
+
+body {
+  font-family: Helvetica, arial, freesans, clean, sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #333;
+  background-color: #fff;
+  padding: 20px;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+body>*:first-child {
+  margin-top: 0 !important;
+}
+
+body>*:last-child {
+  margin-bottom: 0 !important;
+}
+
+/* BLOCKS
+=============================================================================*/
+
+p, blockquote, ul, ol, dl, table, pre {
+  margin: 15px 0;
+}
+
+/* HEADERS
+=============================================================================*/
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 20px 0 10px;
+  padding: 0;
+  font-weight: bold;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1 tt, h1 code, h2 tt, h2 code, h3 tt, h3 code, h4 tt, h4 code, h5 tt, h5 code, h6 tt, h6 code {
+  font-size: inherit;
+}
+
+h1 {
+  font-size: 28px;
+  color: #000;
+}
+
+h2 {
+  font-size: 24px;
+  border-bottom: 1px solid #ccc;
+  color: #000;
+}
+
+h3 {
+  font-size: 18px;
+}
+
+h4 {
+  font-size: 16px;
+}
+
+h5 {
+  font-size: 14px;
+}
+
+h6 {
+  color: #777;
+  font-size: 14px;
+}
+
+body>h2:first-child, body>h1:first-child, body>h1:first-child+h2, body>h3:first-child, body>h4:first-child, body>h5:first-child, body>h6:first-child {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+a:first-child h1, a:first-child h2, a:first-child h3, a:first-child h4, a:first-child h5, a:first-child h6 {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+h1+p, h2+p, h3+p, h4+p, h5+p, h6+p {
+  margin-top: 10px;
+}
+
+/* LINKS
+=============================================================================*/
+
+a {
+  color: #4183C4;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* LISTS
+=============================================================================*/
+
+ul, ol {
+  padding-left: 30px;
+}
+
+ul li > :first-child, 
+ol li > :first-child, 
+ul li ul:first-of-type, 
+ol li ol:first-of-type, 
+ul li ol:first-of-type, 
+ol li ul:first-of-type {
+  margin-top: 0px;
+}
+
+ul ul, ul ol, ol ol, ol ul {
+  margin-bottom: 0;
+}
+
+dl {
+  padding: 0;
+}
+
+dl dt {
+  font-size: 14px;
+  font-weight: bold;
+  font-style: italic;
+  padding: 0;
+  margin: 15px 0 5px;
+}
+
+dl dt:first-child {
+  padding: 0;
+}
+
+dl dt>:first-child {
+  margin-top: 0px;
+}
+
+dl dt>:last-child {
+  margin-bottom: 0px;
+}
+
+dl dd {
+  margin: 0 0 15px;
+  padding: 0 15px;
+}
+
+dl dd>:first-child {
+  margin-top: 0px;
+}
+
+dl dd>:last-child {
+  margin-bottom: 0px;
+}
+
+/* CODE
+=============================================================================*/
+
+pre, code, tt {
+  font-size: 12px;
+  font-family: Consolas, "Liberation Mono", Courier, monospace;
+}
+
+code, tt {
+  margin: 0 0px;
+  padding: 0px 0px;
+  white-space: nowrap;
+  border: 1px solid #eaeaea;
+  background-color: #f8f8f8;
+  border-radius: 3px;
+}
+
+pre>code {
+  margin: 0;
+  padding: 0;
+  white-space: pre;
+  border: none;
+  background: transparent;
+}
+
+pre {
+  background-color: #f8f8f8;
+  border: 1px solid #ccc;
+  font-size: 13px;
+  line-height: 19px;
+  overflow: auto;
+  padding: 6px 10px;
+  border-radius: 3px;
+}
+
+pre code, pre tt {
+  background-color: transparent;
+  border: none;
+}
+
+kbd {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background-color: #DDDDDD;
+    background-image: linear-gradient(#F1F1F1, #DDDDDD);
+    background-repeat: repeat-x;
+    border-color: #DDDDDD #CCCCCC #CCCCCC #DDDDDD;
+    border-image: none;
+    border-radius: 2px 2px 2px 2px;
+    border-style: solid;
+    border-width: 1px;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    line-height: 10px;
+    padding: 1px 4px;
+}
+
+/* QUOTES
+=============================================================================*/
+
+blockquote {
+  border-left: 4px solid #DDD;
+  padding: 0 15px;
+  color: #777;
+}
+
+blockquote>:first-child {
+  margin-top: 0px;
+}
+
+blockquote>:last-child {
+  margin-bottom: 0px;
+}
+
+/* HORIZONTAL RULES
+=============================================================================*/
+
+hr {
+  clear: both;
+  margin: 15px 0;
+  height: 0px;
+  overflow: hidden;
+  border: none;
+  background: transparent;
+  border-bottom: 4px solid #ddd;
+  padding: 0;
+}
+
+/* TABLES
+=============================================================================*/
+
+table th {
+  font-weight: bold;
+}
+
+table th, table td {
+  border: 1px solid #ccc;
+  padding: 6px 13px;
+}
+
+table tr {
+  border-top: 1px solid #ccc;
+  background-color: #fff;
+}
+
+table tr:nth-child(2n) {
+  background-color: #f8f8f8;
+}
+
+/* IMAGES
+=============================================================================*/
+
+img {
+  max-width: 100%
+}
+</style>
+</head>
+<body>
+<h1><center>Canvas</h1>
+<p>2018/7/3 17:43:43 </p>
+<h2>什么是canvas</h2>
+<p>HTML5canvas元素用于图形的绘制，通过脚本 (通常是JavaScript)来完成</p>
+<p>canvas标签只是图形容器，您必须使用脚本来绘制图形。</p>
+<p>你可以通过多种方法使用 canvas 绘制路径,盒、圆、字符以及添加图像。</p>
+<h2>创建一个画布（Canvas</h2>
+<p>一个画布在网页中是一个矩形框，通过canvas元素来绘制.</p>
+<pre><code>&lt;canvas id=&quot;myCanvas&quot; width=&quot;200&quot; height=&quot;100&quot;&gt;&lt;/canvas&gt;
+</code></pre>
+
+<p>标签通常需要指定一个id属性 (脚本中经常引用), width 和 height 属性定义的画布的大小.</p>
+<h2>使用 JavaScript 来绘制图像</h2>
+<p>首先，找到canvas元素:</p>
+<pre><code>var c=document.getElementById(&quot;myCanvas&quot;);
+</code></pre>
+
+<p>然后，创建 context 对象</p>
+<pre><code>var ctx=c.getContext(&quot;2d&quot;);
+</code></pre>
+
+<p>getContext(&quot;2d&quot;) 对象是内建的 HTML5 对象，拥有多种绘制路径、矩形、圆形、字符以及添加图像的方法。</p>
+<p>绘制一个红色的矩形：</p>
+<pre><code>ctx.fillStyle=&quot;#FF0000&quot;;
+ctx.fillRect(0,0,150,75);
+</code></pre>
+
+<p>fillStyle属性可以是CSS颜色，渐变，或图案。</p>
+<p>illRect(x,y,width,height) 方法定义了矩形当前的填充方式。</p>
+<h2>Canvas 坐标</h2>
+<p>canvas 是一个二维网格</p>
+<p>canvas 的左上角坐标为 (0,0)</p>
+<h2>Canvas - 路径</h2>
+<p>在Canvas上画线，我们将使用以下两种方法：</p>
+<ul>
+<li>moveTo(x,y) 定义线条开始坐标</li>
+<li>lineTo(x,y) 定义线条结束坐标</li>
+</ul>
+<p>绘制线条我们必须使用到 &quot;ink&quot; 的方法，就像stroke().</p>
+<pre><code>var c=document.getElementById(&quot;myCanvas&quot;);
+var ctx=c.getContext(&quot;2d&quot;);
+ctx.moveTo(0,0);
+ctx.lineTo(200,100);
+ctx.stroke();
+</code></pre>
+
+<h2>Canvas - 文本</h2>
+<p>使用 canvas 绘制文本，重要的属性和方法如下：</p>
+<ul>
+<li>font - 定义字体</li>
+<li>fillText(text,x,y) - 在 canvas 上绘制实心的文本</li>
+<li>strokeText(text,x,y) - 在 canvas 上绘制空心的文本</li>
+</ul>
+<h2>Canvas - 渐变</h2>
+<p>渐变可以填充在矩形, 圆形, 线条, 文本等等, 各种形状可以自己定义不同的颜色</p>
+<p>以下有两种不同的方式来设置Canvas渐变：</p>
+<ul>
+<li>createLinearGradient(x,y,x1,y1) - 创建线条渐变</li>
+<li>createRadialGradient(x,y,r,x1,y1,r1) - 创建一个径向/圆渐变</li>
+</ul>
+<p>当我们使用渐变对象，必须使用两种或两种以上的停止颜色。</p>
+<p>addColorStop()方法指定颜色停止，参数使用坐标来描述，可以是0至1.</p>
+<p>使用渐变，设置fillStyle或strokeStyle的值为 渐变，然后绘制形状，如矩形，文本，或一条线。</p>
+<p>使用 createLinearGradient():</p>
+<pre><code>var c=document.getElementById(&quot;myCanvas&quot;);
+var ctx=c.getContext(&quot;2d&quot;);
+
+// 创建渐变
+var grd=ctx.createLinearGradient(0,0,200,0);
+grd.addColorStop(0,&quot;red&quot;);
+grd.addColorStop(1,&quot;white&quot;);
+
+// 填充渐变
+ctx.fillStyle=grd;
+ctx.fillRect(10,10,150,80);
+</code></pre>
+
+<h2>Canvas - 图像</h2>
+<p>把一幅图像放置到画布上, 使用以下方法:</p>
+<ul>
+<li>drawImage(image,x,y)</li>
+</ul>
+<p>js代码：</p>
+<pre><code>var c=document.getElementById(&quot;myCanvas&quot;);
+var ctx=c.getContext(&quot;2d&quot;);
+var img=document.getElementById(&quot;scream&quot;);
+ctx.drawImage(img,10,10);
+</code></pre>
+
+
+</body>
+</html>
+<!-- This document was created with MarkdownPad, the Markdown editor for Windows (http://markdownpad.com) -->
